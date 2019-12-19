@@ -1,144 +1,285 @@
 <template>
-  <v-container>
-    <v-layout
-      text-center
-      wrap
-    >
-      <v-flex xs12>
-        <v-img
-          :src="require('../assets/logo.svg')"
-          class="my-3"
-          contain
-          height="200"
-        ></v-img>
-      </v-flex>
+<v-app id = "inspire">
+      <v-card>
+         <v-app-bar
+            app="app"
+            color="white"
+            flat
+            >
+            <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
+            <v-toolbar-title>Calculator</v-toolbar-title>
+            <v-spacer/>
+            <v-btn icon="icon">
+                <v-icon>mdi-dots-vertical</v-icon>
+            </v-btn>
+        </v-app-bar>
 
-      <v-flex mb-4>
-        <h1 class="display-2 font-weight-bold mb-3">
-          Welcome to Vuetify
-        </h1>
-        <p class="subheading font-weight-regular">
-          For help and collaboration with other Vuetify developers,
-          <br>please join our online
-          <a href="https://community.vuetifyjs.com" target="_blank">Discord Community</a>
-        </p>
-      </v-flex>
+        <v-navigation-drawer v-model="drawer" app="app">
+            <v-list flat>
+                <v-list-item @click.stop="left = !left">
 
-      <v-flex
-        mb-5
-        xs12
-      >
-        <h2 class="headline font-weight-bold mb-3">What's next?</h2>
+                    <v-list-item-content>
+                        <v-list-item-title class="title">
+                            Calculator
+                        </v-list-item-title>
+                        <v-list-item-subtitle>
+                            subtext
+                        </v-list-item-subtitle>
+                    </v-list-item-content>
+                </v-list-item>
 
-        <v-layout justify-center>
-          <a
-            v-for="(next, i) in whatsNext"
-            :key="i"
-            :href="next.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ next.text }}
-          </a>
-        </v-layout>
-      </v-flex>
+                <v-divider></v-divider>
 
-      <v-flex
-        xs12
-        mb-5
-      >
-        <h2 class="headline font-weight-bold mb-3">Important Links</h2>
+                <v-list-item v-for="item in items" :key="item.title" link="link">
+                    <v-list-item-icon>
+                        <v-icon>{{ item.icon }}</v-icon>
+                    </v-list-item-icon>
 
-        <v-layout justify-center>
-          <a
-            v-for="(link, i) in importantLinks"
-            :key="i"
-            :href="link.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ link.text }}
-          </a>
-        </v-layout>
-      </v-flex>
+                    <v-list-item-content>
+                        <v-list-item-title>{{ item.title }}</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
 
-      <v-flex
-        xs12
-        mb-5
-      >
-        <h2 class="headline font-weight-bold mb-3">Ecosystem</h2>
+            </v-list>
+        </v-navigation-drawer>
+        
+<v-content>
+  <v-divider></v-divider>
+<v-container></v-container><v-container></v-container><v-container></v-container><v-container></v-container>
+            <v-container>
+                <v-layout column="column" row="row">
+                    <div class="calculator">
+                      <div></div>
+                        <div class="display">
+                            <p class="text-end">
+                                {{current || '0'}}
+                            </p>
+                        </div>
+                        <div></div><div></div><div></div><div></div>
+                        <v-btn
+                            min-height="60"
+                            @click="clear"
+                            class="btn operator"
+                            tile="tile"
+                            color="white">C</v-btn>
 
-        <v-layout justify-center>
-          <a
-            v-for="(eco, i) in ecosystem"
-            :key="i"
-            :href="eco.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ eco.text }}
-          </a>
-        </v-layout>
-      </v-flex>
-    </v-layout>
-  </v-container>
+                        <v-btn min-height="60" @click="sign" class="btn" tile="tile" color="white">+/-</v-btn>
+
+                        <v-btn
+                            min-height="60"
+                            @click="percent"
+                            class="btn operator"
+                            tile="tile"
+                            color="white">%</v-btn>
+
+                        <v-btn
+                            min-height="60"
+                            @click="append('/')"
+                            class="btn operator"
+                            tile="tile"
+                            color="white">÷</v-btn>
+
+                        <v-btn
+                            min-height="60"
+                            @click="append('7')"
+                            class="btn"
+                            tile="tile"
+                            color="white">7</v-btn>
+
+                        <v-btn
+                            min-height="60"
+                            @click="append('8')"
+                            class="btn"
+                            tile="tile"
+                            color="white">8</v-btn>
+
+                        <v-btn
+                            min-height="60"
+                            @click="append('9')"
+                            class="btn"
+                            tile="tile"
+                            color="white">9</v-btn>
+
+                        <v-btn
+                            min-height="60"
+                            @click="append('*')"
+                            class="btn operator"
+                            tile="tile"
+                            color="white">x</v-btn>
+
+                        <v-btn
+                            min-height="60"
+                            @click="append('4')"
+                            class="btn"
+                            tile="tile"
+                            color="white">4</v-btn>
+
+                        <v-btn
+                            min-height="60"
+                            @click="append('5')"
+                            class="btn"
+                            tile="tile"
+                            color="white">5</v-btn>
+
+                        <v-btn
+                            min-height="60"
+                            @click="append('6')"
+                            class="btn"
+                            tile="tile"
+                            color="white">6</v-btn>
+
+                        <v-btn
+                            min-height="60"
+                            @click="append('-')"
+                            class="btn operator"
+                            tile="tile"
+                            color="white">-</v-btn>
+
+                        <v-btn
+                            min-height="60"
+                            @click="append('1')"
+                            class="btn"
+                            tile="tile"
+                            color="white">1</v-btn>
+
+                        <v-btn
+                            min-height="60"
+                            @click="append('2')"
+                            class="btn"
+                            tile="tile"
+                            color="white">2</v-btn>
+
+                        <v-btn
+                            min-height="60"
+                            @click="append('3')"
+                            class="btn"
+                            tile="tile"
+                            color="white">3</v-btn>
+
+                        <v-btn
+                            min-height="60"
+                            @click="append('+')"
+                            class="btn operator"
+                            tile="tile"
+                            color="white">+</v-btn>
+
+                        <v-btn
+                            min-height="60"
+                            @click="append('0')"
+                            class="btn zero"
+                            tile="tile"
+                            color="white">0</v-btn>
+
+                        <v-btn min-height="60" @click="dot" class="btn" tile="tile" color="white">.</v-btn>
+
+                        <v-btn
+                            min-height="60"
+                            @click="equal"
+                            class="btn operator"
+                            tile="tile"
+                            color="white">=</v-btn>
+                    </div>
+                    
+
+                </v-layout>
+            </v-container>
+            
+        </v-content>
+        
+      </v-card>
+</v-app>
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-
-  data: () => ({
-    ecosystem: [
-      {
-        text: 'vuetify-loader',
-        href: 'https://github.com/vuetifyjs/vuetify-loader',
-      },
-      {
-        text: 'github',
-        href: 'https://github.com/vuetifyjs/vuetify',
-      },
-      {
-        text: 'awesome-vuetify',
-        href: 'https://github.com/vuetifyjs/awesome-vuetify',
-      },
-    ],
-    importantLinks: [
-      {
-        text: 'Documentation',
-        href: 'https://vuetifyjs.com',
-      },
-      {
-        text: 'Chat',
-        href: 'https://community.vuetifyjs.com',
-      },
-      {
-        text: 'Made with Vuetify',
-        href: 'https://madewithvuejs.com/vuetify',
-      },
-      {
-        text: 'Twitter',
-        href: 'https://twitter.com/vuetifyjs',
-      },
-      {
-        text: 'Articles',
-        href: 'https://medium.com/vuetify',
-      },
-    ],
-    whatsNext: [
-      {
-        text: 'Explore components',
-        href: 'https://vuetifyjs.com/components/api-explorer',
-      },
-      {
-        text: 'Select a layout',
-        href: 'https://vuetifyjs.com/layout/pre-defined',
-      },
-      {
-        text: 'Frequently Asked Questions',
-        href: 'https://vuetifyjs.com/getting-started/frequently-asked-questions',
-      },
-    ],
-  }),
-};
+  export default {
+    name: 'HelloWorld',
+    data: () => ({
+            drawer: null,
+            drawerRight: null,
+            right: false,
+            left: false,
+            items: [
+                {
+                    title: 'General Calculator',
+                    icon: 'mdi-view-dashboard',
+                    to: {
+                      path: '/'
+                    }
+                }, {
+                    title: 'Scientific Calculator',
+                    icon: 'mdi-image',
+                    to: {
+                      path: '/science'
+                    }
+                }, {
+                    title: 'Others',
+                    icon: 'mdi-help-box'
+                }
+            ],
+            previous: null,
+            current: '',
+            operator: null,
+            operatorClicked: false
+        }),
+        methods: {
+            clear() {
+                this.current = '';
+            },
+            sign() {
+                this.current = this
+                    .current
+                    .charAt(0) === '-'
+                        ? this
+                            .current
+                            .slice(1)
+                        : `-${this.current}`;
+            },
+            append(number) {
+                if (this.operatorClicked) {
+                    this.current = '';
+                    this.operatorClicked = false;
+                }
+                this.current = `${this.current}${number}`;
+            },
+            dot() {
+                if (this.current.indexOf('.') === -1) {
+                    this.append('.');
+                }
+            },
+            setPrevious() {
+                this.previous = this.current;
+            },
+            percent() {
+                this.current = `${parseFloat(this.current) / 100}`;
+            },
+            equal() {
+                this.current = eval(this.current);
+                this.previous = null;
+            }
+        }
+  }
 </script>
+
+<style scoped="scoped">
+    .calculator {
+        font-size: 30px;
+        display: grid;
+    }
+    .display {
+        grid-column: 1 / 5;
+        height: 200px;
+        background-color: white;
+        color: black;
+    }
+    .zero {
+        grid-column: 1 / 3;
+    }
+    .btn {
+        border: rgb(220, 226, 233);
+    }
+    .operator {}
+    .coloring {
+        background-color: white;
+        color: black;
+    }
+</style>
