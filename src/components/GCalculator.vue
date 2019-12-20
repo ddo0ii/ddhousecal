@@ -8,14 +8,17 @@
                 <v-container></v-container>
                 <v-container></v-container>
                 <v-container>
+                    <div class="caldis">
+                        <p class="text-end">
+                            {{current || '0'}}
+                        </p>
+                    </div>
                     <v-layout column="column" row="row">
                         <div class="calculator">
                             <div></div>
-                            <div class="display">
-                                <p class="text-end">
-                                    {{current || '0'}}
-                                </p>
-                            </div>
+
+                            <div class="display"></div>
+
                             <div></div>
                             <div></div>
                             <div></div>
@@ -130,8 +133,8 @@
                         </div>
 
                     </v-layout>
-                </v-container>
 
+                </v-container>
             </v-content>
 
         </v-card>
@@ -153,9 +156,14 @@
         font-size: 30px;
         display: grid;
     }
+    .caldis {
+        height: 200px;
+        background-color: white;
+        color: black;
+    }
     .display {
         grid-column: 1 / 5;
-        height: 200px;
+        height: 1px;
         background-color: white;
         color: black;
     }
