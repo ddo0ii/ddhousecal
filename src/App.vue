@@ -26,7 +26,12 @@
 
                     <v-divider></v-divider>
 
-                    <v-list-item v-for="item in items" :key="item.title" link="link" @click="menuIdx=item.i">
+                    <v-list-item
+                        v-for="item in items"
+                        :key="item.title"
+                        link="link"
+                        @click="menuIdx=item.i"
+                        @click.stop="drawer =!drawer">
                         <v-list-item-icon>
                             <v-icon>{{ item.icon }}</v-icon>
                         </v-list-item-icon>
@@ -36,16 +41,14 @@
                         </v-list-item-content>
                     </v-list-item>
 
-                    
-
                 </v-list>
             </v-navigation-drawer>
-<div v-if="menuIdx==0">
-            <GCalculator/>
-</div>
-<div v-if="menuIdx==1">
-            <SCalculator/>
-</div>
+            <div v-if="menuIdx==0">
+                <GCalculator/>
+            </div>
+            <div v-if="menuIdx==1">
+                <SCalculator/>
+            </div>
 
         </v-card>
     </v-app>
@@ -58,7 +61,8 @@
     export default {
         name: 'App',
         components: {
-            GCalculator, SCalculator
+            GCalculator,
+            SCalculator
         },
         data: () => ({
             menuIdx: 0,
@@ -66,11 +70,11 @@
             left: false,
             operatorClicked: false,
             items: [
-                {   
-                    i: 0,                 
+                {
+                    i: 0,
                     title: 'General Calculator',
                     icon: 'mdi-view-dashboard'
-                }, {  
+                }, {
                     i: 1,
                     title: 'Scientific Calculator',
                     icon: 'mdi-image'
@@ -80,6 +84,6 @@
                     icon: 'mdi-help-box'
                 }
             ]
-        }),
+        })
     };
 </script>
